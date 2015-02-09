@@ -1,0 +1,210 @@
+<html>
+	<head>
+		<title>I love Sheila Clark</title>
+		<style type="text/css">
+			html { 
+			  background: url(bg2.jpg) no-repeat center center fixed; 
+			  -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
+			}
+
+			#lyrics {
+				position: absolute;
+				bottom: 10px;
+				font-size: 20pt;
+				color: white;
+			}
+		</style>
+	</head>
+<body>
+	<div>
+		Time: <span id="time"></span>
+	</div>
+	<video width="50%" hesight="340" controls id="video">
+  		<source src="AllOfMe.mp4#t=10" type='video/mp4;'>
+	</video>
+
+	<div id="lyrics"></div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script>
+		$(function(){
+			var lines = loadLines();
+			var lineIndex = 0;
+
+			var t = $("#time");
+			var v = $("#video")[0];
+			var l = $("#lyrics");
+
+			v.addEventListener("timeupdate", function(e) {
+				//console.log();
+				var curr = e.srcElement.currentTime
+				var index = findIndex(curr, times, lineIndex);
+				if (index != lineIndex) {
+					lineIndex = index;
+					l.text(lines[lineIndex]);
+				}
+
+			});
+
+			$("html").keypress(function(e) {
+				if (event.which === 32) {
+					times[lineIndex] = v.currentTime;
+					console.log(times[lineIndex]);
+					l.text(lines[lineIndex++]);
+				}
+			});
+
+			function findIndex(currentTime, times, currentIndex) {
+
+				var prev = times[currentIndex - 1]
+				var next = times[currentTime + 1]
+
+				for (var i = currentIndex; i<times.length-1; ++i) {
+					if ((currentTime >= times[i]) && (currentTime < times[i+1])){
+						return i;
+					}
+				}
+
+				if (currentIndex != 0)
+					return findIndex(currentTime, times, 0);
+
+				return -1;
+			}
+
+			var times = window.times = [
+				0,
+				23.686206,
+				28.122016,
+				32.021795,
+				40.242287,
+				44.166282,
+				48.240201,
+				57.121432,
+				61.54563,
+				64.564088,
+				70.682272,
+				73.967157,
+				77.647351,
+				81.245868,
+				85.808791,
+				89.046806,
+				92.727003,
+				96.303328,
+				100.100616,
+				107.367548,
+				115.621465,
+				120.683189,
+				124.282117,
+				131.83987,
+				135.775474,
+				139.677246,
+				147.86091,
+				151.459838,
+				154.884013,
+				160.375895,
+				163.836508,
+				167.876601,
+				170.998545,
+				174.980587,
+				178.463833,
+				182.481292,
+				185.777379,
+				189.573671,
+				197.07338,
+				204.421548,
+				216.042612,
+				218.376723,
+				221.19782,
+				222.962868,
+				227.154468,
+				230.671139,
+				234.641982,
+				238.751319,
+				242.734359,
+				246.030447,
+				250.093757,
+				257.513196,
+				265.477281,
+				273.115303,
+				284.354247,
+				287];
+
+
+			//l.text(lines[0]);
+			//v.play();
+
+		});
+
+		function loadLines() {
+			return [
+				"",
+				"What would I do without your smart mouth?",
+				"Drawing me in, and you kicking me out",
+				"You've got my head spinning, no kidding, I can't pin you down",
+				"What's going on in that beautiful mind",
+				"I'm on your magical mystery ride",
+				"And I'm so dizzy, don't know what hit me, but I'll be alright",
+
+				"My head's under water",
+				"But I'm breathing fine",
+				"You're crazy and I'm out of my mind",
+
+				"'Cause all of me",
+				"Loves all of you",
+				"Love your curves and all your edges",
+				"All your perfect imperfections",
+				"Give your all to me",
+				"I'll give my all to you",
+				"You're my end and my beginning",
+				"Even when I lose I'm winning",
+				"'Cause I give you all of me",
+				"And you give me all of you, ohoh",
+
+				"How many times do I have to tell you",
+				"Even when you're crying you're beautiful too",
+				"The world is beating you down, I'm around through every mood",
+				"You're my downfall, you're my muse",
+				"My worst distraction, my rhythm and blues",
+				"I can't stop singing, it's ringing, in my head for you",
+
+				"My head's under water",
+				"But I'm breathing fine",
+				"You're crazy and I'm out of my mind",
+
+				"'Cause all of me",
+				"Loves all of you",
+				"Love your curves and all your edges",
+				"All your perfect imperfections",
+				"Give your all to me",
+				"I'll give my all to you",
+				"You're my end and my beginning",
+				"Even when I lose I'm winning",
+				"'Cause I give you all of me",
+				"And you give me all of you, ohoh",
+
+				"Give me all of you",
+				"Cards on the table, we're both showing hearts",
+				"Risking it all, though it's hard",
+
+				"'Cause all of me",
+				"Loves all of you",
+				"Love your curves and all your edges",
+				"All your perfect imperfections",
+				"Give your all to me",
+				"I'll give my all to you",
+				"You're my end and my beginning",
+				"Even when I lose I'm winning",
+				"'Cause I give you all of me",
+				"And you give me all of you",
+
+				"I give you all of me",
+				"And you give me all of you, ohoh",
+				""
+			];
+		}
+	</script>
+</body>
+</html>
