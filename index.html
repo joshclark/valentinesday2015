@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>I love Sheila Clark</title>
+		<link href='http://fonts.googleapis.com/css?family=Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
 		<style type="text/css">
 			html { 
 			  background: url(bg2.jpg) no-repeat center center fixed; 
@@ -13,8 +14,11 @@
 			#lyrics {
 				position: absolute;
 				bottom: 10px;
-				font-size: 20pt;
+				font-size: 28px;
+				font-family: 'Nothing You Could Do', cursive;
+				text-shadow: 2px 4px 3px rgba(0,0,0,1);
 				color: white;
+				width: 98%
 			}
 		</style>
 	</head>
@@ -30,6 +34,7 @@
 	<div id="lyrics"></div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="jquery.fittext.js"></script>
 	<script>
 		$(function(){
 			var lines = loadLines();
@@ -39,8 +44,14 @@
 			var v = $("#video")[0];
 			var l = $("#lyrics");
 
+			var record = false;
+
+			l.fitText(1.0, {minFontSize: '29', maxFontSize: '60'});
+
+
 			v.addEventListener("timeupdate", function(e) {
-				//console.log();
+				if (record) return;
+
 				var curr = e.srcElement.currentTime
 				var index = findIndex(curr, times, lineIndex);
 				if (index != lineIndex) {
@@ -51,6 +62,8 @@
 			});
 
 			$("html").keypress(function(e) {
+				if (!record) return;
+
 				if (event.which === 32) {
 					times[lineIndex] = v.currentTime;
 					console.log(times[lineIndex]);
@@ -76,62 +89,65 @@
 			}
 
 			var times = window.times = [
-				0,
-				23.686206,
-				28.122016,
-				32.021795,
-				40.242287,
-				44.166282,
-				48.240201,
-				57.121432,
-				61.54563,
-				64.564088,
-				70.682272,
-				73.967157,
-				77.647351,
-				81.245868,
-				85.808791,
-				89.046806,
-				92.727003,
-				96.303328,
-				100.100616,
-				107.367548,
-				115.621465,
-				120.683189,
-				124.282117,
-				131.83987,
-				135.775474,
-				139.677246,
-				147.86091,
-				151.459838,
-				154.884013,
-				160.375895,
-				163.836508,
-				167.876601,
-				170.998545,
-				174.980587,
-				178.463833,
-				182.481292,
-				185.777379,
-				189.573671,
-				197.07338,
-				204.421548,
-				216.042612,
-				218.376723,
-				221.19782,
-				222.962868,
-				227.154468,
-				230.671139,
-				234.641982,
-				238.751319,
-				242.734359,
-				246.030447,
-				250.093757,
-				257.513196,
-				265.477281,
-				273.115303,
-				284.354247,
-				287];
+				18.671333, 
+				24.105147, 
+				28.109821, 
+				32.104059, 
+				40.28872, 
+				44.223323, 
+				48.228988, 
+				57.387827, 
+				60.929729, 
+				64.365721, 
+				71.146641, 
+				73.827837, 
+				77.72862, 
+				81.047899, 
+				85.100209, 
+				88.700135, 
+				92.682179, 
+				96.304331, 
+				100.042576, 
+				107.182384, 
+				116.94535, 
+				120.579698, 
+				124.480474, 
+				132.061444, 
+				135.880953, 
+				139.921041, 
+				148.383745, 
+				151.79751, 
+				155.640239,
+				161.143123, 
+				163.904569, 
+				167.678254, 
+				171.114647, 
+				175.282854, 
+				178.75367, 
+				182.945091, 
+				186.138279, 
+				189.818477, 
+				196.877024, 
+				207.038725, 
+				//211.980922, 
+				214.836901, 
+				220.617354, 
+				223.682658, 
+				227.361836, 
+				230.798843, 
+				235.072117, 
+				238.693273, 
+				242.699529, 
+				246.274244, 
+				250.256284, 
+				257.373878, 
+				265.673636, 
+				272.512599, 
+				283.529964];
+
+			if (record) {
+				times.length = 0;
+			}
 
 
 			//l.text(lines[0]);
@@ -186,7 +202,7 @@
 				"'Cause I give you all of me",
 				"And you give me all of you, ohoh",
 
-				"Give me all of you",
+//				"Give me all of you",
 				"Cards on the table, we're both showing hearts",
 				"Risking it all, though it's hard",
 
