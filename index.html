@@ -18,7 +18,8 @@
 				font-family: 'Nothing You Could Do', cursive;
 				text-shadow: 2px 4px 3px rgba(0,0,0,1);
 				color: white;
-				width: 98%
+				width: 98%;
+				padding: 0 4px;
 			}
 		</style>
 	</head>
@@ -56,7 +57,10 @@
 				var index = findIndex(curr, times, lineIndex);
 				if (index != lineIndex) {
 					lineIndex = index;
-					l.text(lines[lineIndex]);
+					//l.text(lines[lineIndex]);
+					l.fadeOut('fast', function() {
+						l.text(lines[lineIndex]).fadeIn('fast');
+					});
 				}
 
 			});
@@ -85,7 +89,7 @@
 				if (currentIndex != 0)
 					return findIndex(currentTime, times, 0);
 
-				return -1;
+				return lines.length-1;
 			}
 
 			var times = window.times = [
@@ -219,6 +223,7 @@
 
 				"I give you all of me",
 				"And you give me all of you, ohoh",
+				"",
 				""
 			];
 		}
